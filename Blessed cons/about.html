@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blessed Construction</title>
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {font-family: Arial, sans-serif;}
+
+    header {
+      background: #0a2c47;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+      position: fixed;   /* fixed on scroll */
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    body {
+      padding-top: 70px; /* offset for fixed header */
+    }
+
+    /* Logo */
+    header img {
+      height: 300px;  /* smaller height for navbar */
+      width: auto;
+    }
+
+    /* Nav right side */
+    nav {
+      margin-left: auto;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 12px;
+      transition: 0.3s;
+    }
+    nav a:hover { color: #f8c12d; }
+
+    nav a.active {
+      color: #f8c12d;
+      font-weight: bold;
+      border-bottom: 2px solid #f8c12d;
+      padding-bottom: 2px;
+    }
+
+    /* ---- Toggle Menu ---- */
+    #menu {
+      position: fixed;
+      top: 70px;
+      right: -250px;
+      width: 250px;
+      height: 100vh;
+      background: rgba(5, 31, 52, 0.95);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: 0.3s;
+      z-index: 999;
+    }
+    #menu.active { right: 0; }
+    #menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
+    #menu ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 10px;
+      transition: 0.3s;
+    }
+    #menu ul li a:hover { color: #f8c12d; }
+
+    /* ---- Hamburger ---- */
+    .menu-toggle {
+      display: none; /* hide by default */
+      flex-direction: column;
+      cursor: pointer;
+      margin-left: 20px;
+    }
+    .menu-toggle span {
+      background: #fff;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      nav { display: none; } /* hide desktop nav */
+      .menu-toggle { display: flex; } /* show hamburger */
+    }
+  </style>
+
+  <header>
+    <!-- Logo Left -->
+    <img src="assets/logo.png" alt="Blessed Construction Logo">
+
+    <!-- Desktop Nav -->
+    <nav>
+      <a href="home.html" >Home</a>
+      <a href="project.html">Projects</a>
+      <a href="service.html" >Services</a>
+      <a href="about.html" class="active">About</a>
+      <a href="photo.html">Photos</a>
+    </nav>
+
+    <!-- Hamburger Right -->
+    <div class="menu-toggle" onclick="toggleMenu(event)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- Toggle Menu -->
+  <div id="menu" onmouseleave="closeMenu()">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="project.html">Projects</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="photo.html">Photos</a></li>
+      <li><a href="service.html">3D Model</a></li>
+      <li><a href="service.html">2D Model</a></li>
+      <li><a href="service.html">AR/VR Model</a></li>
+      <li><a href="about.html">Feedback</a></li>
+    </ul>
+  </div>
+
+
+  <style>
+  
+  .about-heading {
+  font-size: 36px;
+  color: #fff;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* 🔹 Default span hover */
+.about-text span {
+  position: relative;
+  display: inline-block;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.about-text span:hover {
+  color: #ffdd57;
+  transform: scale(1.2) translateY(-5px);
+  text-shadow: 0px 4px 10px rgba(255, 221, 87, 0.7);
+}
+
+/* 🔹 Special span (Blessed Construction) */
+.special {
+  position: relative;
+  color: #ffdd57;
+  background: linear-gradient(90deg, #ffdd57, #00eaff, #ffdd57);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+}
+
+/* Hover effect for Blessed Construction */
+.special:hover {
+  transform: scale(1.15);
+}
+
+/* Shimmer animation */
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Paragraph styling */
+.about-text {
+  font-size: 18px;
+  color: #f0f0f0;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Optional: fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about-heading, .about-text {
+  animation: fadeInUp 1s ease forwards;
+}
+
+.about-section {
+  position: relative;
+  background: url('assets/about-bg.jpg') no-repeat center center/cover;
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.about-section .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 44, 71, 0.7); /* dark blue overlay with opacity */
+  z-index: 1;
+}
+
+.about-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.about-container h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.about-container p {
+  font-size: 18px;
+  margin-bottom: 50px;
+}
+
+.services {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.service-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 12px;
+  width: 300px;
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.service-box h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #ffdd57; /* highlight color */
+}
+
+.service-box p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.service-box:hover {
+  transform: translateY(-10px) scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+}
+</style>
+
+  <!-- About Section -->
+<section class="about-section">
+  <div class="overlay"></div>
+  <div class="about-container">
+    <h2 class="about-heading">
+  About <span class="special">Blessed Construction</span>
+</h2>
+
+<p class="about-text">
+  At <span class="special">Blessed Construction</span>, we are committed to delivering <span>excellence</span> 
+  in every project. From <span>residential</span> to <span>commercial spaces</span>, we provide 
+  high-quality solutions in <span>building</span>, <span>renovation</span>, and <span>remodeling</span>, 
+  ensuring durability, design, and <span>customer satisfaction</span>.
+</p>
+
+
+    <div class="services">
+      <div class="service-box">
+        <h3>🏗 Building Construction</h3>
+        <p>We specialize in reliable and cost-effective building solutions for homes, offices, and industries.</p>
+      </div>
+      <div class="service-box">
+        <h3>🔨 Structural Renovation</h3>
+        <p>Our renovation services strengthen and modernize structures while maintaining safety and quality.</p>
+      </div>
+      <div class="service-box">
+        <h3>🎨 Interior & Exterior Remodeling</h3>
+        <p>Transform spaces with our expert interior and exterior remodeling services tailored to your needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-section {
+  text-align: center;
+  padding: 60px 20px;
+  background: url('your-bg.jpg') no-repeat center center/cover;
+  background-attachment: fixed;
+  color: #000;
+}
+
+.stats-section h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-number {
+  display: inline-block;
+  font-size: 48px;
+  font-weight: bold;
+  color: #e60023;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* 🔹 Hover effect for numbers */
+.stat-number:hover {
+  transform: scale(1.3) rotate(-5deg);
+  color: #ff9800;
+  text-shadow: 0px 5px 20px rgba(255, 152, 0, 0.7);
+}
+
+/* 🔹 Animated underline on hover */
+.stat-number::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #e60023, #ff9800, #e60023);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+
+.stat-number:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.stat-box p {
+  font-size: 16px;
+  margin-top: 8px;
+  color: #333;
+}
+
+</style>
+
+  <section class="stats-section">
+  <h2>Build Better , On time , On Budget , We Deliver</h2>
+  
+  <div class="stats-container">
+    <div class="stat-box">
+      <span class="stat-number">4+</span>
+      <p>Years of Success</p>
+    </div>
+    
+    <div class="stat-box">
+      <span class="stat-number">50+</span>
+      <p>Projects Completed</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="feedback-section">
+  <h2>What Our Clients Say</h2> <br>
+  <div class="feedback-slider">
+    <div class="feedback-track">
+      <div class="feedback-box">
+        <img src="assets/client1.jpg" alt="Client 1">
+        <p>"Blessed Construction gave us the best service for our home project. Highly satisfied!"</p>
+        <span class="client-name">Prakash - Chennai</span>
+      </div>
+      <div class="feedback-box">
+        <img src="assets/client2.jpg" alt="Client 2">
+        <p>"Their team was professional and delivered on time with excellent quality."</p>
+        <span class="client-name">Subramani- Coimbatore</span>
+      </div>
+      <div class="feedback-box">
+        <img src="assets/client3.jpg" alt="Client 3">
+        <p>"Very good workmanship and responsive customer support."</p>
+        <span class="client-name">Ravi - Madurai</span>
+      </div>
+      <div class="feedback-box">
+        <img src="assets/client4.jpg" alt="Client 4">
+        <p>"Affordable price and top-notch quality. Highly recommend them!"</p>
+        <span class="client-name">Lakshmi raj - Trichy</span>
+      </div>
+      <div class="feedback-box">
+        <img src="assets/client5.jpg" alt="Client 5">
+        <p>"From design to execution, everything was smooth and professional."</p>
+        <span class="client-name">Suresh - Salem</span>
+      </div>
+      <div class="feedback-box">
+        <img src="assets/client6.jpg" alt="Client 6">
+        <p>"They completed our office renovation beautifully. Great team!"</p>
+        <span class="client-name">Kumar- Erode</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.feedback-section {
+  text-align: center;
+  background: #f9f9f9;
+  padding: 50px 20px;
+  overflow: hidden;
+}
+
+.feedback-slider {
+  overflow: hidden;
+  width: 100%;
+}
+
+.feedback-track {
+  display: flex;
+  gap: 20px;
+  animation: scroll 60s linear infinite;
+  width: max-content;
+}
+
+.feedback-box {
+  min-width: 280px;
+  max-width: 280px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  text-align: center;
+}
+
+.feedback-box img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.feedback-box:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.client-name {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #444;
+  transition: color 0.3s;
+}
+
+.client-name:hover {
+  color: #d9534f;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+</style>
+
+<script>
+  // Duplicate track for infinite loop
+  const track = document.querySelector(".feedback-track");
+  track.innerHTML += track.innerHTML;
+</script>
+
+
+  
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/919842830071" target="_blank" class="whatsapp-float">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+</a>
+
+<style>
+  .whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .whatsapp-float img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 4px 4px 15px rgba(0,0,0,0.4);
+  }
+</style>
+
+
+
+
+<!-- Map Section -->
+<div style="text-align: center; margin: 40px 0;">
+  <h2 class="map-title">📍 Find Us on Map</h2>
+</div>
+
+<div style="width: 100%; height: 400px;">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.028162984539!2d78.7614304!3d10.7925681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x837c6dc99376e96d%3A0x3445cc7ee0db287e!2sTri%20Stone%20Industries!5e0!3m2!1sen!2sin!4v1724212780000!5m2!1sen!2sin" 
+    width="100%" 
+    height="100%" 
+    frameborder="0" 
+    style="border:0;" 
+    allowfullscreen="" 
+    loading="lazy">
+  </iframe>
+</div>
+
+<style>
+  .map-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0a2c47;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeSlide 1.2s ease forwards;
+  }
+
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+
+
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Quick Links -->
+    <div class="footer-col animate-col delay1">
+      <h4>QUICK LINKS</h4>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="project.html">Projects</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="about.html">About us</a></li>
+        <li><a href="photo.html">Photos</a></li>
+
+      </ul>
+    </div>
+
+    <!-- Technology -->
+    <div class="footer-col animate-col delay2">
+      <h4>TECHNOLOGY</h4>
+      <ul>
+        <li><a href="service.html#2d">2D Model</a></li>
+        <li><a href="service.html#3d">3D Model</a></li>
+        <li><a href="service.html#arvr">AR / VR Modeling</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div class="footer-col animate-col delay3">
+      <h4>COME FIND US</h4>
+      <ul>
+        <li>Address: Nancy complex, opposite IOB bank, Malaikoil, Thiruverumbur, Tamil Nadu 620013</li>
+        <li>Emai: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=blessedconstruction.in@gmail.com" target="_blank">
+  blessedconstruction.in@gmail.com
+</a></li>
+
+        <li>Phone: <a href="tel:+919842830071">+91 9842830071</a></li>
+        <li><a href="tel:+916380654022">+91 6380654022</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom animate-col delay4">
+    <p>© 2025 All Rights Reserved | Blessed Construction</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/blessedconstruction.in?igsh=Z2l0OHA4ZXN4em5x" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/company/blessed-construction/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Font Awesome Free CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+  .footer {
+    background: #051f34; /* Dark Blue */
+    color: #fff;
+    padding: 50px 8% 20px;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeUp 1s ease-out forwards;
+  }
+
+  
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+
+  .footer-col {
+    flex: 1;
+    min-width: 220px;
+    margin: 15px;
+  }
+
+  .footer-col h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .footer-col h4:hover {
+    color: #ffcc00; /* Yellow hover */
+  }
+
+  .footer-col h4::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: #ff3131; /* Red underline */
+    margin-top: 6px;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-col ul li {
+    margin-bottom: 12px;
+  }
+
+  .footer-col ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-col ul li a:hover {
+    color: #ffcc00; /* Yellow on hover */
+  }
+
+  .footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 15px;
+  display: flex;
+  justify-content: center;  /* Center all items */
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;   /* Stack copyright + socials */
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0 0 10px 0; /* Add spacing below text */
+  font-size: 14px;
+}
+
+  .socials a {
+    color: #fff;
+    margin-left: 12px;
+    font-size: 20px;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .socials a:hover {
+    color: #ffcc00;
+    transform: scale(1.2) rotate(8deg);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-col {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .delay1 { animation-delay: 0.3s; }
+  .delay2 { animation-delay: 0.6s; }
+  .delay3 { animation-delay: 0.9s; }
+  .delay4 { animation-delay: 1.2s; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+    .socials {
+      margin-top: 12px;
+    }
+  }
+</style>
+
+
+
+
+
+
+<script>
+    function toggleMenu(event) {
+      event.stopPropagation();
+      document.getElementById("menu").classList.toggle("active");
+    }
+
+    function closeMenu() {
+      document.getElementById("menu").classList.remove("active");
+    }
+
+    document.addEventListener("click", function(event) {
+      if (!document.getElementById("menu").contains(event.target) && 
+          !document.querySelector(".menu-toggle").contains(event.target)) {
+        closeMenu();
+      }
+    });
+  </script>
+
+  
+
+</html>
+</body>
